@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roteiro de Desligamento · liveSEO</title>
+  <style>
+    :root {
+      --navy: #1E3A5F;
+      --navy-light: #D6E4F0;
+      --navy-mid: #2d5a8e;
+      --green-bg: #D8F3DC;
+      --green-border: #2D6A4F;
+      --yellow-bg: #FFF9E6;
+      --yellow-border: #B8860B;
+      --gray-text: #444444;
+      --gray-light: #f7f8fa;
+      --border: #e0e4ea;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: var(--gray-text);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container { max-width: 760px; margin: 0 auto; }
+
+    .header {
+      background: var(--navy);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 2rem 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 4px 20px rgba(30,58,95,0.18);
+    }
+    .header h1 { font-size: 20px; font-weight: 600; letter-spacing: 1px; }
+    .header p { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+    .instrucao {
+      background: var(--yellow-bg);
+      border-left: 4px solid var(--yellow-border);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #7a5c00;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .section { margin-bottom: 1.5rem; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.75rem;
+    }
+    .badge {
+      background: var(--navy);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .section-title { font-size: 14px; font-weight: 600; color: var(--navy); }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 540px) { .field-grid { grid-template-columns: 1fr; } }
+
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 12px; font-weight: 600; color: var(--navy); }
+    .field input, .field select {
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-text);
+      background: var(--gray-light);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--navy); background: white; }
+
+    .pergunta-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pergunta-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .pergunta-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .pergunta-num {
+      background: var(--navy-light);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .pergunta-texto {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-text);
+      line-height: 1.5;
+    }
+
+    .aprofundamento {
+      font-size: 12px;
+      color: #888;
+      font-style: italic;
+      margin: 4px 0 8px 0;
+      padding-left: 14px;
+      border-left: 2px solid var(--border);
+    }
+
+    .pergunta-item textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--gray-text);
+      background: var(--gray-light);
+      min-height: 60px;
+      resize: vertical;
+      transition: border-color 0.2s;
+      outline: none;
+      margin-top: 2px;
+    }
+    .pergunta-item textarea:focus { border-color: var(--navy); background: white; }
+
+    .alerta-box {
+      background: var(--yellow-bg);
+      border-left: 3px solid var(--yellow-border);
+      border-radius: 0 7px 7px 0;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #7a5c00;
+      margin-bottom: 12px;
+    }
+
+    .btn-exportar {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 13px 24px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.2px;
+    }
+    .btn-exportar:hover { background: var(--navy-mid); }
+    .btn-exportar:active { transform: scale(0.99); }
+
+    .tip {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .export-section {
+      display: none;
+      margin-top: 1.5rem;
+    }
+    .export-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .export-box {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      color: var(--gray-text);
+      max-height: 340px;
+      overflow-y: auto;
+    }
+    .export-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn-sec {
+      flex: 1;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--navy);
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-sec:hover { background: var(--gray-light); }
+
+    .instrucao-final {
+      background: var(--green-bg);
+      border-left: 4px solid var(--green-border);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--green-border);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+    .instrucao-final strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 2.5rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>ROTEIRO DE DESLIGAMENTO</h1>
+    <p>People &amp; Culture · liveSEO</p>
+  </div>
+
+  <div class="instrucao">
+    Preencha os dados e as respostas do colaborador durante a entrevista. Ao final, clique em <strong>Exportar respostas</strong>, copie o texto gerado e cole no Claude para gerar o relatório completo em .docx.
+  </div>
+
+  <!-- IDENTIFICAÇÃO -->
+  <div class="section">
+    <div class="section-header"><span class="badge">Identificação</span></div>
+    <div class="card">
+      <div class="field-grid">
+        <div class="field"><label>Nome completo</label><input type="text" id="f-nome" placeholder="Nome do colaborador" /></div>
+        <div class="field"><label>Cargo</label><input type="text" id="f-cargo" placeholder="Ex: Analista de SEO" /></div>
+        <div class="field"><label>Time</label><input type="text" id="f-time" placeholder="Ex: Conteúdo" /></div>
+        <div class="field"><label>Tipo de vínculo</label>
+          <select id="f-vinculo">
+            <option value="">Selecione</option>
+            <option>CLT</option><option>Estágio</option><option>PJ</option><option>Aprendiz</option>
+          </select>
+        </div>
+        <div class="field"><label>Motivo do desligamento</label>
+          <select id="f-motivo">
+            <option value="">Selecione</option>
+            <option>Pedido voluntário</option><option>Pedido da empresa</option><option>Saúde</option><option>Término de contrato</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="field"><label>Líder direto</label><input type="text" id="f-lider" placeholder="Nome do gestor" /></div>
+        <div class="field"><label>Entrevistadora</label><input type="text" id="f-entrevistadora" placeholder="Seu nome" /></div>
+        <div class="field"><label>Data da entrevista</label><input type="date" id="f-data" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EIXO 1 -->
+  <div class="section">
+    <div class="section-header"><span class="badge">Eixo 1</span><span class="section-title">Experiência geral</span></div>
+    <div class="card">
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P1</span><span class="pergunta-texto">O que foi mais positivo na sua passagem pela liveSEO?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P2</span><span class="pergunta-texto">O que você aprendeu ou desenvolveu durante esse período?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P3</span><span class="pergunta-texto">Houve algum momento marcante — positivo ou negativo — que você carrega dessa experiência?</span></div>
+        <div class="aprofundamento">Se negativo: aprofundar com calma antes de seguir</div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- EIXO 2 -->
+  <div class="section">
+    <div class="section-header"><span class="badge">Eixo 2</span><span class="section-title">Time e liderança</span></div>
+    <div class="card">
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P4</span><span class="pergunta-texto">Como foi a relação com o seu time direto e com times parceiros?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P5</span><span class="pergunta-texto">Como foi sua relação com a liderança? Você sentia abertura, recebia feedback, tinha acompanhamento?</span></div>
+        <div class="aprofundamento">Se sinal de tensão: o que aconteceu? como foi recebido? foi escalado para alguém?</div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P6</span><span class="pergunta-texto">Teve alguma situação com a liderança que ficou em aberto ou que você gostaria que tivesse sido diferente?</span></div>
+        <div class="aprofundamento">Usar apenas se P5 trouxer algo relevante</div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- EIXO 3 -->
+  <div class="section">
+    <div class="section-header"><span class="badge">Eixo 3</span><span class="section-title">Motivo da saída</span></div>
+    <div class="card">
+      <div class="alerta-box">Adaptar a pergunta conforme o motivo selecionado na identificação</div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P7a</span><span class="pergunta-texto">Se pedido voluntário: o que pesou mais na decisão de sair?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P7b</span><span class="pergunta-texto">Se saúde: o ambiente de trabalho teve alguma relação com o seu estado de saúde, ou foi algo completamente externo?</span></div>
+        <div class="aprofundamento">Se tiver relação: registrar com cuidado e gerar alerta no relatório</div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- EIXO 4 -->
+  <div class="section">
+    <div class="section-header"><span class="badge">Eixo 4</span><span class="section-title">Olhar para a empresa</span></div>
+    <div class="card">
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P8</span><span class="pergunta-texto">O que você diria para a liveSEO manter — algo que funciona bem e não deve mudar?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P9</span><span class="pergunta-texto">Se você pudesse mudar uma coisa na empresa, o que seria?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">P10</span><span class="pergunta-texto">Você voltaria à liveSEO se tivesse oportunidade? Indicaria para outras pessoas?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENCERRAMENTO -->
+  <div class="section">
+    <div class="section-header"><span class="badge">Encerramento</span></div>
+    <div class="card">
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num">+</span><span class="pergunta-texto">Tem alguma coisa que você gostaria de falar e que ainda não falou?</span></div>
+        <textarea placeholder="Resposta do colaborador..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-exportar" id="btn-exportar">Exportar respostas</button>
+  <p class="tip">Após exportar, copie o texto e cole no Claude para gerar o relatório em .docx no padrão liveSEO.</p>
+
+  <div class="export-section" id="export-section">
+    <div class="export-label">Texto para colar no Claude:</div>
+    <div class="export-box" id="export-box"></div>
+    <div class="export-actions">
+      <button class="btn-sec" id="btn-copy">Copiar texto</button>
+    </div>
+    <div class="instrucao-final">
+      <strong>Como gerar o relatório:</strong>
+      Abra o Claude (claude.ai), cole o texto copiado e envie. O Claude vai gerar o relatório completo de desligamento no padrão liveSEO.
+    </div>
+  </div>
+
+  <div class="footer">People &amp; Culture · liveSEO</div>
+
+</div>
+
+<script>
+  document.getElementById('f-data').value = new Date().toISOString().split('T')[0];
+
+  const perguntas = [
+    'P1 — O que foi mais positivo na sua passagem pela liveSEO?',
+    'P2 — O que você aprendeu ou desenvolveu durante esse período?',
+    'P3 — Houve algum momento marcante (positivo ou negativo)?',
+    'P4 — Como foi a relação com o time direto e times parceiros?',
+    'P5 — Como foi a relação com a liderança?',
+    'P6 — Teve alguma situação com a liderança que ficou em aberto?',
+    'P7a — (Voluntário) O que pesou mais na decisão de sair?',
+    'P7b — (Saúde) O ambiente teve relação com o estado de saúde?',
+    'P8 — O que a liveSEO deve manter?',
+    'P9 — Se pudesse mudar uma coisa, o que seria?',
+    'P10 — Voltaria? Indicaria?',
+    '+ — Algo mais que gostaria de falar?'
+  ];
+
+  document.getElementById('btn-exportar').addEventListener('click', () => {
+    const get = id => document.getElementById(id)?.value?.trim() || '';
+    const textareas = document.querySelectorAll('textarea');
+
+    let txt = 'ENTREVISTA DE DESLIGAMENTO — liveSEO\n';
+    txt += '─'.repeat(48) + '\n';
+    txt += `Colaborador(a): ${get('f-nome')}\n`;
+    txt += `Cargo: ${get('f-cargo')} | Time: ${get('f-time')}\n`;
+    txt += `Vínculo: ${get('f-vinculo')} | Motivo: ${get('f-motivo')}\n`;
+    txt += `Líder direto: ${get('f-lider')}\n`;
+    txt += `Entrevistadora: ${get('f-entrevistadora')} | Data: ${get('f-data')}\n`;
+    txt += '─'.repeat(48) + '\n\n';
+
+    perguntas.forEach((p, i) => {
+      const resp = textareas[i]?.value?.trim();
+      if (resp) txt += `${p}\n${resp}\n\n`;
+    });
+
+    txt += '─'.repeat(48) + '\n';
+    txt += 'Gera o relatório completo de desligamento no padrão liveSEO com base nessas respostas.';
+
+    document.getElementById('export-box').textContent = txt;
+    const sec = document.getElementById('export-section');
+    sec.style.display = 'block';
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window._txt = txt;
+  });
+
+  document.getElementById('btn-copy').addEventListener('click', () => {
+    if (!window._txt) return;
+    navigator.clipboard.writeText(window._txt).then(() => {
+      const btn = document.getElementById('btn-copy');
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar texto', 2000);
+    });
+  });
+</script>
+</body>
+</html>
