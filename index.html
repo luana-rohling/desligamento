@@ -13,6 +13,8 @@
       --green-border: #2D6A4F;
       --yellow-bg: #FFF9E6;
       --yellow-border: #B8860B;
+      --internal-bg: #F3F0FA;
+      --internal-border: #7C5CBF;
       --gray-text: #444444;
       --gray-light: #f7f8fa;
       --border: #e0e4ea;
@@ -72,6 +74,7 @@
       letter-spacing: 0.3px;
       white-space: nowrap;
     }
+    .badge.interno { background: var(--internal-border); }
     .section-title { font-size: 14px; font-weight: 600; color: var(--navy); }
 
     .card {
@@ -81,12 +84,18 @@
       padding: 1.25rem 1.5rem;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
+    .card.interno {
+      background: var(--internal-bg);
+      border: 1px solid #d0c4f0;
+    }
 
     .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 540px) { .field-grid { grid-template-columns: 1fr; } }
 
     .field { display: flex; flex-direction: column; gap: 5px; }
-    .field label { font-size: 12px; font-weight: 600; color: var(--navy); }
+    .field label { font-size: 12px; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 4px; }
+    .field label .req { color: #c0392b; font-size: 13px; }
+    .field label .opc { font-weight: 400; color: #999; font-size: 11px; }
     .field input, .field select {
       border: 1px solid var(--border);
       border-radius: 7px;
@@ -97,8 +106,22 @@
       background: var(--gray-light);
       transition: border-color 0.2s;
       outline: none;
+      width: 100%;
     }
     .field input:focus, .field select:focus { border-color: var(--navy); background: white; }
+
+    .lideranca-selector { margin-bottom: 14px; }
+    .lideranca-selector label { font-size: 12px; font-weight: 600; color: var(--navy); display: block; margin-bottom: 5px; }
+    .lideranca-selector select {
+      border: 1px solid var(--border); border-radius: 7px; padding: 8px 12px;
+      font-size: 14px; font-family: inherit; color: var(--gray-text);
+      background: var(--gray-light); outline: none; width: 100%;
+      transition: border-color 0.2s;
+    }
+    .lideranca-selector select:focus { border-color: var(--navy); background: white; }
+
+    .lideranca-campos { display: none; }
+    .lideranca-campos.visible { display: block; }
 
     .pergunta-item {
       padding: 12px 0;
@@ -123,12 +146,8 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
-    .pergunta-texto {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--gray-text);
-      line-height: 1.5;
-    }
+    .pergunta-num.interno { background: #e0d4f7; color: var(--internal-border); }
+    .pergunta-texto { font-size: 14px; font-weight: 500; color: var(--gray-text); line-height: 1.5; }
 
     .aprofundamento {
       font-size: 12px;
@@ -155,6 +174,8 @@
       margin-top: 2px;
     }
     .pergunta-item textarea:focus { border-color: var(--navy); background: white; }
+    .card.interno .pergunta-item textarea { background: white; border-color: #d0c4f0; }
+    .card.interno .pergunta-item textarea:focus { border-color: var(--internal-border); }
 
     .alerta-box {
       background: var(--yellow-bg);
@@ -165,6 +186,18 @@
       color: #7a5c00;
       margin-bottom: 12px;
     }
+
+    .interno-aviso {
+      background: var(--internal-bg);
+      border-left: 3px solid var(--internal-border);
+      border-radius: 0 7px 7px 0;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--internal-border);
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+    .interno-aviso strong { display: block; margin-bottom: 2px; font-size: 12px; }
 
     .btn-exportar {
       background: var(--navy);
@@ -179,29 +212,14 @@
       font-family: inherit;
       margin-top: 0.5rem;
       transition: background 0.2s, transform 0.1s;
-      letter-spacing: 0.2px;
     }
     .btn-exportar:hover { background: var(--navy-mid); }
     .btn-exportar:active { transform: scale(0.99); }
 
-    .tip {
-      font-size: 12px;
-      color: #888;
-      margin-top: 8px;
-      text-align: center;
-      line-height: 1.5;
-    }
+    .tip { font-size: 12px; color: #888; margin-top: 8px; text-align: center; line-height: 1.5; }
 
-    .export-section {
-      display: none;
-      margin-top: 1.5rem;
-    }
-    .export-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
+    .export-section { display: none; margin-top: 1.5rem; }
+    .export-label { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
     .export-box {
       background: var(--gray-light);
       border: 1px solid var(--border);
@@ -215,11 +233,7 @@
       max-height: 340px;
       overflow-y: auto;
     }
-    .export-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
+    .export-actions { display: flex; gap: 10px; margin-top: 10px; }
     .btn-sec {
       flex: 1;
       background: white;
@@ -247,13 +261,7 @@
     }
     .instrucao-final strong { display: block; margin-bottom: 4px; font-size: 13px; }
 
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: #aaa;
-      margin-top: 2.5rem;
-      font-style: italic;
-    }
+    .footer { text-align: center; font-size: 12px; color: #aaa; margin-top: 2.5rem; font-style: italic; }
   </style>
 </head>
 <body>
@@ -273,24 +281,45 @@
     <div class="section-header"><span class="badge">Identificação</span></div>
     <div class="card">
       <div class="field-grid">
-        <div class="field"><label>Nome completo</label><input type="text" id="f-nome" placeholder="Nome do colaborador" /></div>
-        <div class="field"><label>Cargo</label><input type="text" id="f-cargo" placeholder="Ex: Analista de SEO" /></div>
-        <div class="field"><label>Time</label><input type="text" id="f-time" placeholder="Ex: Conteúdo" /></div>
+        <div class="field"><label>Nome completo <span class="req">*</span></label><input type="text" id="f-nome" placeholder="Nome do colaborador" /></div>
+        <div class="field"><label>Cargo <span class="req">*</span></label><input type="text" id="f-cargo" placeholder="Ex: Analista de SEO" /></div>
+        <div class="field"><label>Time <span class="req">*</span></label><input type="text" id="f-time" placeholder="Ex: Conteúdo" /></div>
         <div class="field"><label>Tipo de vínculo</label>
-          <select id="f-vinculo">
-            <option value="">Selecione</option>
-            <option>CLT</option><option>Estágio</option><option>PJ</option><option>Aprendiz</option>
-          </select>
+          <select id="f-vinculo"><option value="">Selecione</option><option>CLT</option><option>Estágio</option><option>PJ</option><option>Aprendiz</option></select>
         </div>
-        <div class="field"><label>Motivo do desligamento</label>
-          <select id="f-motivo">
-            <option value="">Selecione</option>
-            <option>Pedido voluntário</option><option>Pedido da empresa</option><option>Saúde</option><option>Término de contrato</option><option>Outro</option>
-          </select>
+        <div class="field"><label>Motivo do desligamento <span class="req">*</span></label>
+          <select id="f-motivo"><option value="">Selecione</option><option>Pedido voluntário</option><option>Pedido da empresa</option><option>Saúde</option><option>Término de contrato</option><option>Outro</option></select>
         </div>
-        <div class="field"><label>Líder direto</label><input type="text" id="f-lider" placeholder="Nome do gestor" /></div>
         <div class="field"><label>Entrevistadora</label><input type="text" id="f-entrevistadora" placeholder="Seu nome" /></div>
         <div class="field"><label>Data da entrevista</label><input type="date" id="f-data" /></div>
+      </div>
+
+      <!-- LIDERANÇA -->
+      <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);">
+        <div class="lideranca-selector">
+          <label>Estrutura de liderança <span class="req">*</span></label>
+          <select id="f-estrutura" onchange="atualizarLideranca()">
+            <option value="">Selecione a estrutura</option>
+            <option value="operacao">Operação — times multidisciplinares</option>
+            <option value="demais">Demais times</option>
+          </select>
+        </div>
+
+        <div class="lideranca-campos" id="campos-operacao">
+          <div class="field-grid">
+            <div class="field"><label>Líder de Spaceship <span class="req">*</span></label><input type="text" id="f-spaceship" placeholder="Nome" /></div>
+            <div class="field"><label>Coordenador(a) <span class="req">*</span></label><input type="text" id="f-coord-op" placeholder="Nome" /></div>
+            <div class="field"><label>Gestor(a) <span class="req">*</span></label><input type="text" id="f-gestor-op" placeholder="Nome" /></div>
+            <div class="field"><label>Diretor(a) <span class="opc">(opcional)</span></label><input type="text" id="f-diretor" placeholder="Nome" /></div>
+          </div>
+        </div>
+
+        <div class="lideranca-campos" id="campos-demais">
+          <div class="field-grid">
+            <div class="field"><label>Coordenador(a) <span class="opc">(opcional)</span></label><input type="text" id="f-coord-d" placeholder="Nome" /></div>
+            <div class="field"><label>Gestor(a) <span class="req">*</span></label><input type="text" id="f-gestor-d" placeholder="Nome" /></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -342,12 +371,7 @@
     <div class="card">
       <div class="alerta-box">Adaptar a pergunta conforme o motivo selecionado na identificação</div>
       <div class="pergunta-item">
-        <div class="pergunta-label"><span class="pergunta-num">P7a</span><span class="pergunta-texto">Se pedido voluntário: o que pesou mais na decisão de sair?</span></div>
-        <textarea placeholder="Resposta do colaborador..."></textarea>
-      </div>
-      <div class="pergunta-item">
-        <div class="pergunta-label"><span class="pergunta-num">P7b</span><span class="pergunta-texto">Se saúde: o ambiente de trabalho teve alguma relação com o seu estado de saúde, ou foi algo completamente externo?</span></div>
-        <div class="aprofundamento">Se tiver relação: registrar com cuidado e gerar alerta no relatório</div>
+        <div class="pergunta-label"><span class="pergunta-num">P7a</span><span class="pergunta-texto">Se voluntário (pedido de demissão por parte do colaborador): qual foi o principal motivo da decisão de sair da empresa?</span></div>
         <textarea placeholder="Resposta do colaborador..."></textarea>
       </div>
     </div>
@@ -383,6 +407,29 @@
     </div>
   </div>
 
+  <!-- OBSERVAÇÕES INTERNAS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="badge interno">Uso interno</span>
+      <span class="section-title" style="color: var(--internal-border);">Observações da entrevistadora</span>
+    </div>
+    <div class="interno-aviso">
+      <strong>Não perguntar diretamente ao colaborador</strong>
+      Este campo é de uso exclusivo de People &amp; Culture. Registre percepções, contexto de saúde e observações que não fazem parte do roteiro oficial.
+    </div>
+    <div class="card interno">
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num interno">OI1</span><span class="pergunta-texto">Saúde: o ambiente de trabalho teve alguma relação com o estado de saúde do colaborador?</span></div>
+        <div class="aprofundamento">Registrar apenas se houver indícios — não perguntar diretamente</div>
+        <textarea placeholder="Observação interna..."></textarea>
+      </div>
+      <div class="pergunta-item">
+        <div class="pergunta-label"><span class="pergunta-num interno">OI2</span><span class="pergunta-texto">Percepções gerais sobre o tom, postura e contexto da conversa</span></div>
+        <textarea placeholder="Observação interna..."></textarea>
+      </div>
+    </div>
+  </div>
+
   <button class="btn-exportar" id="btn-exportar">Exportar respostas</button>
   <p class="tip">Após exportar, copie o texto e cole no Claude para gerar o relatório em .docx no padrão liveSEO.</p>
 
@@ -405,38 +452,80 @@
 <script>
   document.getElementById('f-data').value = new Date().toISOString().split('T')[0];
 
-  const perguntas = [
+  function atualizarLideranca() {
+    const val = document.getElementById('f-estrutura').value;
+    document.getElementById('campos-operacao').classList.toggle('visible', val === 'operacao');
+    document.getElementById('campos-demais').classList.toggle('visible', val === 'demais');
+  }
+
+  function getLideranca() {
+    const est = document.getElementById('f-estrutura').value;
+    if (est === 'operacao') {
+      const sp = document.getElementById('f-spaceship').value.trim();
+      const co = document.getElementById('f-coord-op').value.trim();
+      const ge = document.getElementById('f-gestor-op').value.trim();
+      const di = document.getElementById('f-diretor').value.trim();
+      let txt = `Estrutura: Operação\nLíder de Spaceship: ${sp} | Coordenador(a): ${co} | Gestor(a): ${ge}`;
+      if (di) txt += ` | Diretor(a): ${di}`;
+      return txt;
+    } else if (est === 'demais') {
+      const co = document.getElementById('f-coord-d').value.trim();
+      const ge = document.getElementById('f-gestor-d').value.trim();
+      let txt = `Estrutura: Demais times\nGestor(a): ${ge}`;
+      if (co) txt += ` | Coordenador(a): ${co}`;
+      return txt;
+    }
+    return 'Estrutura de liderança: não informada';
+  }
+
+  const perguntasRoteiro = [
     'P1 — O que foi mais positivo na sua passagem pela liveSEO?',
     'P2 — O que você aprendeu ou desenvolveu durante esse período?',
     'P3 — Houve algum momento marcante (positivo ou negativo)?',
     'P4 — Como foi a relação com o time direto e times parceiros?',
     'P5 — Como foi a relação com a liderança?',
     'P6 — Teve alguma situação com a liderança que ficou em aberto?',
-    'P7a — (Voluntário) O que pesou mais na decisão de sair?',
-    'P7b — (Saúde) O ambiente teve relação com o estado de saúde?',
+    'P7a — (Voluntário) Qual foi o principal motivo da decisão de sair?',
     'P8 — O que a liveSEO deve manter?',
     'P9 — Se pudesse mudar uma coisa, o que seria?',
     'P10 — Voltaria? Indicaria?',
-    '+ — Algo mais que gostaria de falar?'
+    '+ — Algo mais que gostaria de falar?',
+  ];
+
+  const perguntasInternas = [
+    'OI1 — Saúde: relação com o ambiente de trabalho',
+    'OI2 — Percepções gerais da entrevistadora',
   ];
 
   document.getElementById('btn-exportar').addEventListener('click', () => {
     const get = id => document.getElementById(id)?.value?.trim() || '';
-    const textareas = document.querySelectorAll('textarea');
+    const textareas = document.querySelectorAll('.card:not(.interno) .pergunta-item textarea');
+    const textareasInternas = document.querySelectorAll('.card.interno .pergunta-item textarea');
 
     let txt = 'ENTREVISTA DE DESLIGAMENTO — liveSEO\n';
     txt += '─'.repeat(48) + '\n';
     txt += `Colaborador(a): ${get('f-nome')}\n`;
     txt += `Cargo: ${get('f-cargo')} | Time: ${get('f-time')}\n`;
     txt += `Vínculo: ${get('f-vinculo')} | Motivo: ${get('f-motivo')}\n`;
-    txt += `Líder direto: ${get('f-lider')}\n`;
+    txt += getLideranca() + '\n';
     txt += `Entrevistadora: ${get('f-entrevistadora')} | Data: ${get('f-data')}\n`;
     txt += '─'.repeat(48) + '\n\n';
 
-    perguntas.forEach((p, i) => {
+    perguntasRoteiro.forEach((p, i) => {
       const resp = textareas[i]?.value?.trim();
       if (resp) txt += `${p}\n${resp}\n\n`;
     });
+
+    const temInterno = Array.from(textareasInternas).some(t => t.value.trim());
+    if (temInterno) {
+      txt += '─'.repeat(48) + '\n';
+      txt += 'OBSERVAÇÕES INTERNAS (uso exclusivo People & Culture)\n';
+      txt += '─'.repeat(48) + '\n';
+      perguntasInternas.forEach((p, i) => {
+        const resp = textareasInternas[i]?.value?.trim();
+        if (resp) txt += `${p}\n${resp}\n\n`;
+      });
+    }
 
     txt += '─'.repeat(48) + '\n';
     txt += 'Gera o relatório completo de desligamento no padrão liveSEO com base nessas respostas.';
